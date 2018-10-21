@@ -3,11 +3,9 @@
 
 const fs = require('fs');
 
-var fileDir;
-
 var parserFunctions = function() {
-    function parseCommands() {
-        var commands = fs.readFileSync(this.fileDir, 'utf8');
+    function parseCommands(fileDir) {
+        var commands = fs.readFileSync(fileDir, 'utf8');
         commands = commands.split(/\r?\n/)
 
         return commands

@@ -47,7 +47,6 @@ var adapter = function() {
             if(this.placeAppeared){
                 switch(commands[i]) {
                     case "MOVE":
-                        // Do environment check here
                         moveRobot()
                         break;
                     case "LEFT":
@@ -69,7 +68,6 @@ var adapter = function() {
     function moveRobot() {
         // Performs boundary check for robot
         newPos = robot.forward(true);
-        console.log(newPos);
         if(environment.checkBounds(newPos[0],newPos[1])) {
             robot.forward();
         }
@@ -84,7 +82,13 @@ var adapter = function() {
 }
 
 // Simulation
-parser.setFileDir('../inputs/inputd.txt');
-var commands = parser.parseCommands();
 var adapter = adapter();
-adapter.runCommands(commands);
+
+const fs = require('fs');
+var inputs = fs.readdirSync('../inputs');
+
+for(j=0;j<inputs.length;j++){
+    var commands = parser.parseCommands('../inputs/' + inputs[j]);
+
+    adapter.runCommands(commands);
+}

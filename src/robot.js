@@ -12,7 +12,6 @@ var dir;
 // Robot Commands
 var robotFunctions = function() {
 
-    // TODO: Prevent placement more than once
     function place(xCoord ,yCoord ,dir) {
         this.xCoord = xCoord;
         this.yCoord = yCoord;
