@@ -35,23 +35,30 @@ var robotFunctions = function() {
     }
 
     function rotateLeft() {
-        this.dir = (this.dir - 1) % enumLookup.length;
+        // Rotates 1 step left
+        if(this.dir == 0) {
+            this.dir = enumLookup.length - 1
+        }
+        else {
+            this.dir = (this.dir - 1) % enumLookup.length;
+        }
     }
 
     function rotateRight() {
+        // Rotates 1 step right
         this.dir = (this.dir + 1) % enumLookup.length;
     }
 
     function report() {
-        console.log(this.xCoord + ',' + this.yCoord + ',' + enumLookup[this.dir])
+        console.log(this.xCoord + ',' + this.yCoord + ',' + enumLookup[this.dir]);
     }
 
     function getDirEnum() {
-        return this.DirEnum;
+        return DirEnum;
     }
 
     function getDirEnumLookup() {
-        return this.enumLookup;
+        return enumLookup;
     }
     
     function getCoords() {
