@@ -5,6 +5,7 @@
 var robot = require('./robot.js');
 var parser = require('./parser.js');
 var dirEnum = robot.getDirEnum();
+var environment = require('./table.js');
 
 // Placement flag 
 var placeAppeared = false;
@@ -36,18 +37,18 @@ var adapter = function() {
                         dir = dirEnum.WEST;
                         break;
                     default:
-                        console.log("ERROR: unrecognized direction")
+                        console.log("ERROR: unrecognized direction " + placement[2])
                 }
                 
                 robot.place(placement[0], placement[1], dir);
                 continue;
             }
-            // check and run commands for robot
+            // Check and run commands for robot
             if(this.placeAppeared){
                 switch(commands[i]) {
                     case "MOVE":
-                        // TODO: checks within bounds
-                        robot.forward();
+                        // Do environment check here
+                        moveRobot()
                         break;
                     case "LEFT":
                         robot.rotateLeft();
@@ -64,13 +65,26 @@ var adapter = function() {
             }
         }
     }
+
+    function moveRobot() {
+        // Performs boundary check for robot
+        newPos = robot.forward(true);
+        console.log(newPos);
+        if(environment.checkBounds(newPos[0],newPos[1])) {
+            robot.forward();
+        }
+        else {
+            return;
+        }
+    }
+
     return {
         runCommands: runCommands
     }
 }
 
 // Simulation
-parser.setFileDir('../inputs/inputc.txt');
+parser.setFileDir('../inputs/inputd.txt');
 var commands = parser.parseCommands();
 var adapter = adapter();
 adapter.runCommands(commands);

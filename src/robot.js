@@ -8,7 +8,6 @@ var enumLookup = ['NORTH', 'EAST', 'SOUTH', 'WEST'];
 var xCoord;
 var yCoord;
 var dir;
-var environment = require('./table.js');
 
 // Robot Commands
 var robotFunctions = function() {
@@ -18,31 +17,35 @@ var robotFunctions = function() {
         this.xCoord = xCoord;
         this.yCoord = yCoord;
         this.dir = dir;
-        this.environment = environment;
     }
 
-    function forward() {
+    function forward(check) {
+        check = check || false;
+
+        var newY = this.yCoord;
+        var newX = this.xCoord;
+
         switch(this.dir) {
             case DirEnum.NORTH:
-                if (environment.checkBounds(this.xCoord, this.yCoord + 1)) {
-                    this.yCoord++;
-                }
+                newY++;
                 break;
             case DirEnum.SOUTH:
-                if (environment.checkBounds(this.xCoord, this.yCoord - 1)) {
-                    this.yCoord--;
-                }
+                newY--;
                 break;
             case DirEnum.EAST:
-                if (environment.checkBounds(this.xCoord + 1, this.yCoord)) {
-                    this.xCoord++;
-                }
+                newX++;
                 break;
             case DirEnum.WEST:
-                if (environment.checkBounds(this.xCoord - 1, this.yCoord)) {
-                    this.xCoord--;
-                }
+                newX--;
                 break;
+        }
+
+        if (!check) {
+            this.yCoord = newY;
+            this.xCoord = newX;
+        }
+        else {
+            return [newX,newY];
         }
     }
 
