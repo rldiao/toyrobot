@@ -5,10 +5,7 @@ const width = 5;
 // range of y
 const length = 5;
 
-function checkBounds(coord) {
-    x = coord[0];
-    y = coord[1];
-    
+function checkBounds(x, y) {
     if (x < 0 || x > width - 1) {
         return false
     }

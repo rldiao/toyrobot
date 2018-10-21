@@ -1,18 +1,14 @@
 // controller.js acts as Robot Controller and Adapter
 
-// Set up
+// Set up simulation environment
 var robot = require('./robot.js');
 var parser = require('./parser.js');
 var dirEnum = robot.getDirEnum();
-var environment = require('./table.js');
-parser.setFileDir('../inputs/inputb.txt');
 
 // Placement flag 
 var placeAppeared = false;
 
-// Simulation
-var commands = parser.parseCommands();
-
+// Adapter
 var adapter = function() {
     function runCommands(commands) {
         // runs commands and adapters for robot.
@@ -67,5 +63,8 @@ var adapter = function() {
     }
 }
 
+// Simulation
+parser.setFileDir('../inputs/inputc.txt');
+var commands = parser.parseCommands();
 var adapter = adapter();
 adapter.runCommands(commands);
