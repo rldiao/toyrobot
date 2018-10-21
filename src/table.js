@@ -1,4 +1,4 @@
-// Class representing the table
+// Class representing the table or more generally the simulated environment
 
 // range of x
 const width = 5;

@@ -1,4 +1,5 @@
-// controller.js acts as Robot Controller and Adapter
+// controller.js acts as the Controller to set-up and run he simulation.
+// Contains the adapter for converting parsed input into Robot actions.
 
 // Set up simulation environment
 var robot = require('./robot.js');
@@ -10,8 +11,9 @@ var placeAppeared = false;
 
 // Adapter
 var adapter = function() {
+
     function runCommands(commands) {
-        // runs commands and adapters for robot.
+        // adapter for syntax provided in PROBLEM.md
 
         for(i = 0; i < commands.length; i++) {
             // Check for PLACE
@@ -33,10 +35,12 @@ var adapter = function() {
                     case 'WEST':
                         dir = dirEnum.WEST;
                         break;
+                    default:
+                        console.log("ERROR: unrecognized direction")
                 }
-
+                
                 robot.place(placement[0], placement[1], dir);
-
+                continue;
             }
             // check and run commands for robot
             if(this.placeAppeared){
@@ -54,6 +58,8 @@ var adapter = function() {
                     case "REPORT":
                         robot.report();
                         break;
+                    default:
+                        console.log("ERROR: unrecognized command " + commands[i])
                 }
             }
         }

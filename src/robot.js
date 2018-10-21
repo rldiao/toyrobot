@@ -1,3 +1,5 @@
+// robot.js represents the simulated robot
+
 // Direction Handling
 var DirEnum = {"NORTH":0, "EAST":1, "SOUTH":2, "WEST":3};
 var enumLookup = ['NORTH', 'EAST', 'SOUTH', 'WEST'];
