@@ -1,23 +1,55 @@
-// Main test environment
+// Acts as Robot Controller and Adapter
 
+// Set up
 var robot = require('./robot.js');
 var parser = require('./parser.js');
-
+var adapter = require('./adapter.js')
+var environment = require('./table.js');
 parser.setFileDir('../inputs/inputa.txt');
 
-var commands = parser.parseCommands()
-console.log(commands)
+// Placement flag 
+var placeAppeared = false;
 
-robot.place(1,1,0);
-robot.report();
-robot.rotateRight();
-robot.report();
-robot.rotateLeft();
-robot.report();
+// Simulation
+var commands = parser.parseCommands();
 
-// const fs = require('fs');
+var adapter = function() {
+    function runCommands(commands) {
+        // runs commands and adapters for robot.
 
-// commands = fs.readFileSync('./commands.txt', 'utf8');
-// commands = commands.split(/\r?\n/)
+        for(i = 0; i < commands.length; i++) {
+            // Check for PLACE
+            if(commands[i].startsWith("PLACE")){
+                this.placeAppeared = true;
+                var placement = commands[i].split(' ')[1].split(',');
+                // console.log(commands[i].split(' ')[1].split(','))
+                robot.place(placement[0], placement[1], 0);
 
-// console.log(commands);
+            }
+            // check and run commands for robot
+            if(this.placeAppeared){
+                switch(commands[i]) {
+                    case "MOVE":
+                        // checks within bounds
+                        robot.forward();
+                        break;
+                    case "LEFT":
+                        robot.rotateLeft();
+                        break;
+                    case "RIGHT":
+                        robot.rotateRight();
+                        break;
+                    case "REPORT":
+                        robot.report();
+                        break;
+                }
+            }
+        }
+    }
+    return {
+        runCommands: runCommands
+    }
+}
+
+var adapter = adapter();
+adapter.runCommands(commands);

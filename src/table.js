@@ -1,0 +1,23 @@
+// Class representing the table
+
+// range of x
+const width = 5;
+// range of y
+const length = 5;
+
+function checkBounds(coord) {
+    x = coord[0];
+    y = coord[1];
+    
+    if (x < 0 || x > width - 1) {
+        return false
+    }
+    else if (y < 0 || y > length - 1) {
+        return false
+    }
+    else {
+        return true
+    }
+}
+
+module.exports.checkBounds = checkBounds;

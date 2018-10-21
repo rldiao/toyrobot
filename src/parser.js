@@ -1,3 +1,6 @@
+// Parser for robot commands
+// TODO: Better error handling
+
 const fs = require('fs');
 
 var fileDir;

@@ -10,6 +10,7 @@ var dir;
 // Robot Commands
 var robotFunctions = function() {
 
+    // TODO: Prevent placement more than once
     function place(xCoord ,yCoord ,dir) {
         this.xCoord = xCoord;
         this.yCoord = yCoord;
@@ -45,12 +46,27 @@ var robotFunctions = function() {
         console.log(this.xCoord + ',' + this.yCoord + ',' + enumLookup[this.dir])
     }
 
+    function getDirEnum() {
+        return this.DirEnum;
+    }
+
+    function getDirEnumLookup() {
+        return this.enumLookup;
+    }
+    
+    function getCoords() {
+        return (x, y);
+    }
+
     return {
         place: place,
         forward: forward,
         rotateLeft: rotateLeft,
         rotateRight: rotateRight,
-        report: report
+        report: report,
+        getDirEnum: getDirEnum,
+        getDirEnumLookup: getDirEnumLookup,
+        getCoords: getCoords
     }
 }();
 
