@@ -16,10 +16,6 @@ function main() {
      * 5. Profit
      */
 
-    table.setRobot(new Robot(1,1,"NORTH"));
-    console.log(table);
-
-    table.checkWin();
 }
 
 main();

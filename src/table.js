@@ -37,16 +37,6 @@ class Table {
 
         return onTable;
     }
-
-    checkWin() {
-        console.log("\n====================");
-        if(this.robotOnTable()) {
-            console.log("SUCCESS: You did it!");
-        }
-        else {
-            console.log("FAIL: Your robot fell!");
-        }
-    }
 }
 
 module.exports = Table;
