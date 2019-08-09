@@ -1,20 +1,52 @@
-// Class representing the table or more generally the simulated environment
+'use strict'
+// A table... You probably don't need to code here
 
-// range of x
-const width = 5;
-// range of y
-const length = 5;
+class Table {
+    constructor(length, width, robot) {
+        this.length = length;
+        this.width = width;
+    }
 
-function checkBounds(x, y) {
-    if (x < 0 || x > width - 1) {
-        return false
+    setRobot(robot) {
+        this.robot = robot;
     }
-    else if (y < 0 || y > length - 1) {
-        return false
+
+    displayRobot() {
+        if(!this.robot) {
+            throw Error("Where's the robot???");
+        }
+        return JSON.stringify(this.robot.position, null, 2);
     }
-    else {
-        return true
+
+    robotOnTable() {
+        // Checks if the robot is on the table
+        // Returns: bool
+        if(!this.robot) {
+            throw Error("Where's the robot???");
+        }
+
+        let onTable = true;
+        const position = this.robot.position;
+
+        if (position.x < 0 || position.x > this.width - 1) {
+            onTable = false;
+        }
+        if (position.y < 0 || position.y > this.length - 1) {
+            onTable = false;
+        }
+
+        return onTable;
+    }
+
+    checkWin() {
+        console.log("\n====================");
+        if(this.robotOnTable()) {
+            console.log("SUCCESS: You did it!");
+        }
+        else {
+            console.log("FAIL: Your robot fell!");
+        }
     }
 }
 
-module.exports.checkBounds = checkBounds;
+module.exports = Table;
